@@ -1,0 +1,11 @@
+pandas
+numpy
+python-dotenv
+sqlalchemy
+psycopg2-binary
+requests
+tqdm
+scikit-learn
+tensorflow
+matplotlib
+nba_api
