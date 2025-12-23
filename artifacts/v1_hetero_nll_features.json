@@ -1,0 +1,12 @@
+[
+  "home_flag",
+  "rest_days",
+  "rolling_pts_5",
+  "rolling_pts_10",
+  "pts_std_10",
+  "rolling_min_5",
+  "rolling_min_10",
+  "min_std_10",
+  "last_game_pts",
+  "last_game_min"
+]
