@@ -70,6 +70,12 @@ def main():
     out["p20"] = probs_ge_k(mu, sigma, 20)
     out["p25"] = probs_ge_k(mu, sigma, 25)
     out["p30"] = probs_ge_k(mu, sigma, 30)
+    
+    AVG_SIGMA = 6.7 #from the evaluation
+
+    out["conf20"] = 100.0 * out["p20"] * (AVG_SIGMA / out["sigma_pts"])
+    out["conf25"] = 100.0 * out["p25"] * (AVG_SIGMA / out["sigma_pts"])
+    out["conf30"] = 100.0 * out["p30"] * (AVG_SIGMA / out["sigma_pts"])
 
     out["model_version"] = MODEL_VERSION
 
@@ -77,11 +83,13 @@ def main():
     INSERT INTO predictions_daily (
         as_of_date, game_id, player_id,
         mu_pts, sigma_pts, p15, p20, p25, p30,
+        conf20, conf25, conf30,
         model_version
     )
     VALUES (
         :as_of_date, :game_id, :player_id,
         :mu_pts, :sigma_pts, :p15, :p20, :p25, :p30,
+        :conf20, :conf25, :conf30,
         :model_version
     )
     ON CONFLICT (as_of_date, game_id, player_id) DO UPDATE SET
@@ -91,6 +99,9 @@ def main():
         p20 = EXCLUDED.p20,
         p25 = EXCLUDED.p25,
         p30 = EXCLUDED.p30,
+        conf20 = EXCLUDED.conf20,
+        conf25 = EXCLUDED.conf25,
+        conf30 = EXCLUDED.conf30,
         model_version = EXCLUDED.model_version,
         created_ts = NOW();
     """
