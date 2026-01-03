@@ -41,7 +41,7 @@ TARGET = "next_points"
 def gaussian_nll(y_true, mu, log_var):
     y_true = tf.cast(y_true, mu.dtype)
     log_var = tf.cast(log_var, mu.dtype)
-    return 0.5 * (log_var + tf.square(y_true - mu) / tf.exp(log_var))
+    return 0.5 * (log_var + tf.square(y_true - mu) / (tf.exp(log_var) + 1e-6))
 
 
 
@@ -53,7 +53,12 @@ def build_model(d_in: int) -> tf.keras.Model:
     h = tf.keras.layers.Dense(64, activation="relu")(h)
 
     mu = tf.keras.layers.Dense(1, name="mu")(h)
-    log_var = tf.keras.layers.Dense(1, name="log_var")(h)
+    raw_log_var = tf.keras.layers.Dense(1)(h)
+    log_var = tf.keras.layers.Lambda(
+        lambda t: tf.clip_by_value(t, 0.0, 6.44),
+        name="log_var"
+    )(raw_log_var)
+
 
     return tf.keras.Model(inputs=x_in, outputs=[mu, log_var])
 

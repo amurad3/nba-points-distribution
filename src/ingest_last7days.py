@@ -8,8 +8,16 @@ from src.db import get_engine
 SLEEP_SECONDS = 1.2
 
 
-def get_yesterday_date():
-    return (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
+def get_last_7_dates():
+    end = datetime.utcnow().date() - timedelta(days=1)
+    start = end - timedelta(days=6)
+    dates = []
+    d = start
+    while d <= end:
+        dates.append(d.strftime("%Y-%m-%d"))
+        d += timedelta(days=1)
+    return dates
+
 
 
 def min_to_float(v):
@@ -137,6 +145,6 @@ def ingest_boxscores(engine, game_ids):
 
 if __name__ == "__main__":
     engine = get_engine()
-    date = get_yesterday_date()
+    date = get_last_7_dates()
     game_ids = ingest_games(engine, date)
     ingest_boxscores(engine, game_ids)

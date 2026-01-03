@@ -5,7 +5,7 @@ def run(cmd: str):
     subprocess.check_call(cmd, shell=True)
 
 def main():
-    run("python -m src.ingest_yesterday")
+    run("python -m src.ingest_last7days")
     run("python -m src.build_features")
     run("python -m src.score_today")
 
