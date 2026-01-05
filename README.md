@@ -172,10 +172,13 @@ Risk indicators are meant to highlight volatility, not guarantee outcomes
     - Parlay probability evaluation with correlation handling
 
 ### Tableau Dashboard
+[![Tableau Dashboard](images/TableauDashboard.png)]
 A Tableau Public dashboard visualizes the daily outputs:
     - ranked by confidence
     - annotated with risk indicators
-[View Tableau Dashboard](https://public.tableau.com/app/profile/athir.murad/viz/nba-point-distribution-12-30/Top20PointScoringPicksConfidenceRisk)
+[View Tableau Dashboard](https://public.tableau.com/app/profile/athir.murad/viz/final-nba-point-distribution-12-30/Dashboard2?publish=yes)
+
+Please enter the dashboard on full screen mode to access all sheets! Thank you!
 
 ### License
 MIT
